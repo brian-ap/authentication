@@ -5,9 +5,9 @@ import PropTypes from 'prop-types';
 import {
   Button, Card, CardSection, Input, Spinner,
 } from '../../components/common/common';
-import styles from './LoginFormStyles';
+import styles from './SignUpFormStyles';
 
-class LoginForm extends Component {
+class SignUpForm extends Component {
   static navigationOptions = {
     title: 'Authentication',
     headerStyle: {
@@ -30,16 +30,16 @@ class LoginForm extends Component {
 
     this.setState({ error: '', loading: true });
 
-    firebase.auth().signInWithEmailAndPassword(email, password)
-      .then(this.onLoginSuccess.bind(this))
-      .catch(this.onLoginFail.bind(this));
+    firebase.auth().createUserWithEmailAndPassword(email, password)
+      .then(this.onSignUpSuccess.bind(this))
+      .catch(this.onSignUpFail.bind(this));
   }
 
-  onLoginFail() {
-    this.setState({ error: 'Log In Failed', loading: false });
+  onSignUpFail() {
+    this.setState({ error: 'Sign Up Failed', loading: false });
   }
 
-  onLoginSuccess() {
+  onSignUpSuccess() {
     this.setState({
       email: '',
       password: '',
@@ -55,7 +55,7 @@ class LoginForm extends Component {
 
     return (
       <Button onPress={this.onButtonPress.bind(this)}>
-        Log in
+        Sign Up
       </Button>
     );
   }
@@ -89,9 +89,10 @@ class LoginForm extends Component {
         <CardSection>
           {this.renderButton()}
         </CardSection>
-        <TouchableOpacity onPress={() => this.props.navigation.navigate('SignUp')}>
-          <Text style={styles.signUp}>
-            Click here to sign up
+
+        <TouchableOpacity onPress={() => this.props.navigation.navigate('Login')}>
+          <Text style={styles.login}>
+            Click here to log in
           </Text>
         </TouchableOpacity>
       </Card>
@@ -99,11 +100,11 @@ class LoginForm extends Component {
   }
 }
 
-LoginForm.propTypes = {
+SignUpForm.propTypes = {
   navigation: PropTypes.objectOf(PropTypes.oneOfType([
     PropTypes.func,
     PropTypes.object,
   ])).isRequired,
 };
 
-export default LoginForm;
+export default SignUpForm;

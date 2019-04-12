@@ -4,7 +4,7 @@ export default StyleSheet.create({
   container: {
     flex: 1,
   },
-  signUp: {
+  login: {
     color: 'blue',
     textAlign: 'center',
   },
